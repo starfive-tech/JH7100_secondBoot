@@ -59,6 +59,7 @@ $(TARGET).elf:$(OBJECTLIST)
 
 %.bin: %.elf
 	$(OBJCOPY) -O binary $^ $@
+	@if [ -f fsz.sh ]; then ./fsz.sh $(TARGET).bin; fi
 
 %.asm: %.elf
 	$(OBJDUMP) -S $^ > $@
