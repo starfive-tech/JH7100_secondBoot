@@ -4,7 +4,6 @@
 #include "encoding.h"
 #include "clkgen_ctrl_macro.h"
 
-
 typedef void ( *STARTRUNNING )( unsigned int par1 );
 
 /*
@@ -85,7 +84,7 @@ void load_and_run_ddr(struct spi_flash* spi_flash,int mode)
 	addr = DEFAULT_DDR_ADDR;
 
 	ret = load_data(spi_flash,addr,DEFAULT_DDR_OFFSET,mode);
-	
+	printk("bootloader version:%s\n\n",VERSION);    
 	if(!ret)
 	{
 		writel(0x1, 0x2000004); 

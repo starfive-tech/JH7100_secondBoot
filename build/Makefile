@@ -8,7 +8,11 @@ OBJCOPY=${CROSSCOMPILE}objcopy
 OBJDUMP=${CROSSCOMPILE}objdump
 
 
-TARGET 	= bootloader
+SUFFIX=$(shell date +%y%m%d)
+GIT_VERSION=$(shell git show -s --pretty=format:%h)
+BLD_VERSION=$(SUFFIX)-$(GIT_VERSION)
+
+TARGET 	= bootloader-$(SUFFIX)
 LINKER_SCRIPT := bootloader.lds
 MAP_FILE := bootloader.map
 
@@ -24,7 +28,7 @@ INCLUDE_DIR=-I. -I../boot\
 RISCV_ARCH := rv64imafdc
 RISCV_ABI  := lp64d 
 
-CFLAGS += -O2 -g -c -Wall
+CFLAGS += -O2 -g -c -Wall -DVERSION=\"$(BLD_VERSION)\"
 CFLAGS += -march=$(RISCV_ARCH)
 CFLAGS += -mabi=$(RISCV_ABI)
 CFLAGS += -mcmodel=medany
