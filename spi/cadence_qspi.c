@@ -306,6 +306,7 @@ void cadence_qspi_init(unsigned int bus, u32 mode)
 	struct spi_operation *func;
     struct cadence_spi_platdata *plat = &cadence_plat;
 
+#if 0 //repeat init
 	/******************* reset ****************/
 	_ENABLE_CLOCK_clk_qspi_refclk_;
     _ENABLE_CLOCK_clk_qspi_apb_;
@@ -316,6 +317,7 @@ void cadence_qspi_init(unsigned int bus, u32 mode)
     _CLEAR_RESET_rstgen_rstn_qspi_ahb_;
     _CLEAR_RESET_rstgen_rstn_qspi_core_;
     _CLEAR_RESET_rstgen_rstn_qspi_apb_;
+#endif
 	plat->bit_mode = mode;
 	
 	func = &cadence_spi4x_func;

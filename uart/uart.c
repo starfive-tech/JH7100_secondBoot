@@ -79,7 +79,8 @@ void uart_init(int id)
 {
 	unsigned int divisor;
 	unsigned char lcr_cache;
-
+	
+#if 0 //repeat init
 	switch(id)
 	{
 		case 0:
@@ -111,7 +112,7 @@ void uart_init(int id)
 		default:
 			return;
 	}
-
+#endif
  	uart_id = id;
 	
 	divisor = (UART_CLK / UART_BUADRATE_32MCLK_115200) >> 4;

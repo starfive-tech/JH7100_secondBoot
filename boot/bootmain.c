@@ -105,7 +105,7 @@ void boot_from_spi(int mode)
 	u32 val;
 
     cadence_qspi_init(0, mode);
-	spi_flash = spi_flash_probe(0, 0, 50000000, 0, (u32)SPI_DATAMODE_8);
+	spi_flash = spi_flash_probe(0, 0, 31250000, 0, (u32)SPI_DATAMODE_8);
 
 	/*init ddr*/
 	load_and_run_ddr(spi_flash,mode);

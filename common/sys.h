@@ -4,7 +4,7 @@
 
 /*********************************** sys clock************************/
 
-#define QSPI_CLK            10000000
+#define QSPI_CLK            100000000
 #define QSPI_REF_CLK        250000000
 
 #define DEFAULT_SD_BOOT_LOAD_BLOCK  1000
