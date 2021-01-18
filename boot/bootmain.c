@@ -2,7 +2,11 @@
 #include "spi_flash.h"
 #include "spi.h"
 #include "encoding.h"
-#include "clkgen_ctrl_macro.h"
+#include <clkgen_ctrl_macro.h>
+#include <syscon_sysmain_ctrl_macro.h>
+#include <ezGPIO_fullMux_ctrl_macro.h>
+#include <rstgen_ctrl_macro.h>
+#include <syscon_iopad_ctrl_macro.h>
 
 typedef void ( *STARTRUNNING )( unsigned int par1 );
 
@@ -131,6 +135,15 @@ void BootMain(void)
 
 	/*switch to pll mode*/
 	chip_clk_init();
+
+    _SET_SYSCON_REG_register69_core1_en(1);
+    _SET_SYSCON_REG_register104_SCFG_io_padshare_sel(6);
+    _SET_SYSCON_REG_register32_SCFG_funcshare_pad_ctrl_0(0x00c00000);
+    _SET_SYSCON_REG_register33_SCFG_funcshare_pad_ctrl_1(0x00c000c0);
+    _SET_SYSCON_REG_register34_SCFG_funcshare_pad_ctrl_2(0x00c000c0);
+    _SET_SYSCON_REG_register35_SCFG_funcshare_pad_ctrl_3(0x00c000c0);
+    _SET_SYSCON_REG_register39_SCFG_funcshare_pad_ctrl_7(0x00c300c3);
+    _SET_SYSCON_REG_register38_SCFG_funcshare_pad_ctrl_6(0x00c00000);
 
 	uart_init(3);
 	
