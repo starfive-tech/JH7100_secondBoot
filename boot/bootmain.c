@@ -125,7 +125,7 @@ static void chip_clk_init()
 	
 	// slow down nne bus can fix nne50 & vp6 ram scan issue,
 	// as well as vin_subsys reg scan issue.
-	_SWITCH_CLOCK_clk_nne_bus_SOURCE_clk_cpu_axi_;
+//	_SWITCH_CLOCK_clk_nne_bus_SOURCE_clk_cpu_axi_;
 }
 
 /*only hartid 0 call this function*/
