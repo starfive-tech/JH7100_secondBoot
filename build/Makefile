@@ -7,12 +7,14 @@ LD=${CROSSCOMPILE}ld
 OBJCOPY=${CROSSCOMPILE}objcopy
 OBJDUMP=${CROSSCOMPILE}objdump
 
+# BOARD IS BEAGLEV OR EVBV1
+BOARD=EVBV1
 
 SUFFIX=$(shell date +%y%m%d)
 GIT_VERSION=$(shell git show -s --pretty=format:%h)
 BLD_VERSION=$(SUFFIX)-$(GIT_VERSION)
 
-TARGET 	= bootloader-$(SUFFIX)
+TARGET 	= bootloader-$(BOARD)-$(SUFFIX)
 LINKER_SCRIPT := bootloader.lds
 MAP_FILE := bootloader.map
 
@@ -28,7 +30,7 @@ INCLUDE_DIR=-I. -I../boot\
 RISCV_ARCH := rv64imafdc
 RISCV_ABI  := lp64d 
 
-CFLAGS += -O2 -g -c -Wall -DVERSION=\"$(BLD_VERSION)\"
+CFLAGS += -O2 -g -c -Wall -DVERSION=\"$(BLD_VERSION)\" -D$(BOARD)
 CFLAGS += -march=$(RISCV_ARCH)
 CFLAGS += -mabi=$(RISCV_ABI)
 CFLAGS += -mcmodel=medany
@@ -79,4 +81,4 @@ $(TARGET).elf:$(OBJECTLIST)
 	
 .PHONY: clean
 clean:
-	rm -f ../*/*.o $(TARGET).bin *.elf *.asm *.map
+	rm -f ../*/*.o $(TARGET).bin $(TARGET).bin.out $(TARGET).elf $(TARGET).asm *.map

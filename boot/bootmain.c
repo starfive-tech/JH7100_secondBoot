@@ -3,6 +3,15 @@
 #include "spi.h"
 #include "encoding.h"
 #include "clkgen_ctrl_macro.h"
+#include "rstgen_ctrl_macro.h"
+#include "syscon_iopad_ctrl_macro.h"
+
+#if defined(BEAGLEV)
+#include <syscon_sysmain_ctrl_macro.h>
+#include <ezGPIO_fullMux_ctrl_macro.h>
+#include <rstgen_ctrl_macro.h>
+#endif
+
 
 typedef void ( *STARTRUNNING )( unsigned int par1 );
 
@@ -121,7 +130,7 @@ static void chip_clk_init()
 	
 	// slow down nne bus can fix nne50 & vp6 ram scan issue,
 	// as well as vin_subsys reg scan issue.
-	_SWITCH_CLOCK_clk_nne_bus_SOURCE_clk_cpu_axi_;
+//	_SWITCH_CLOCK_clk_nne_bus_SOURCE_clk_cpu_axi_;
 }
 
 /*only hartid 0 call this function*/
@@ -131,6 +140,37 @@ void BootMain(void)
 
 	/*switch to pll mode*/
 	chip_clk_init();
+
+//for illegal instruction exception
+	_SET_SYSCON_REG_register50_SCFG_funcshare_pad_ctrl_18(0x00c000c0);
+
+	_CLEAR_RESET_rstgen_rstn_usbnoc_axi_;
+	_CLEAR_RESET_rstgen_rstn_hifi4noc_axi_;
+
+	_ENABLE_CLOCK_clk_x2c_axi_;
+	_CLEAR_RESET_rstgen_rstn_x2c_axi_;
+
+	_CLEAR_RESET_rstgen_rstn_dspx2c_axi_;
+	_CLEAR_RESET_rstgen_rstn_dma1p_axi_;
+
+	_ENABLE_CLOCK_clk_msi_apb_;
+	_CLEAR_RESET_rstgen_rstn_msi_apb_;
+
+	_ASSERT_RESET_rstgen_rstn_x2c_axi_;
+	_CLEAR_RESET_rstgen_rstn_x2c_axi_;
+//end for illegal instruction exception
+
+#if defined(BEAGLEV)
+	_SET_SYSCON_REG_register69_core1_en(1);
+	_SET_SYSCON_REG_register104_SCFG_io_padshare_sel(6);
+	_SET_SYSCON_REG_register32_SCFG_funcshare_pad_ctrl_0(0x00c00000);
+	_SET_SYSCON_REG_register33_SCFG_funcshare_pad_ctrl_1(0x00c000c0);
+	_SET_SYSCON_REG_register34_SCFG_funcshare_pad_ctrl_2(0x00c000c0);
+	_SET_SYSCON_REG_register35_SCFG_funcshare_pad_ctrl_3(0x00c000c0);
+	_SET_SYSCON_REG_register39_SCFG_funcshare_pad_ctrl_7(0x00c300c3);
+	_SET_SYSCON_REG_register38_SCFG_funcshare_pad_ctrl_6(0x00c00000);
+
+#endif
 
 	uart_init(3);
 	
