@@ -8,7 +8,7 @@ OBJCOPY=${CROSSCOMPILE}objcopy
 OBJDUMP=${CROSSCOMPILE}objdump
 
 # BOARD IS BEAGLEV OR EVBV1
-BOARD=EVBV1
+BOARD=BEAGLEV
 
 SUFFIX=$(shell date +%y%m%d)
 GIT_VERSION=$(shell git show -s --pretty=format:%h)
