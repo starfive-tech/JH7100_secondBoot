@@ -1,3 +1,23 @@
+/**
+  ******************************************************************************
+  * @file  bootmain.c
+  * @author  StarFive Technology
+  * @version  V1.0
+  * @date  06/25/2020
+  * @brief
+  ******************************************************************************
+  * @copy
+  *
+  * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  * TIME. AS A RESULT, STARFIVE SHALL NOT BE HELD LIABLE FOR ANY
+  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  * FROM THE CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  *
+  * COPYRIGHT 2020 Shanghai StarFive Technology Co., Ltd.
+  */
+
 #include "sys.h"
 #include "spi_flash.h"
 #include "spi.h"
@@ -136,6 +156,24 @@ void BootMain(void)
 	/*switch to pll mode*/
 	chip_clk_init();
 
+//for illegal instruction exception
+	_SET_SYSCON_REG_register50_SCFG_funcshare_pad_ctrl_18(0x00c000c0);
+
+	_CLEAR_RESET_rstgen_rstn_usbnoc_axi_;
+	_CLEAR_RESET_rstgen_rstn_hifi4noc_axi_;
+
+	_ENABLE_CLOCK_clk_x2c_axi_;
+	_CLEAR_RESET_rstgen_rstn_x2c_axi_;
+
+	_CLEAR_RESET_rstgen_rstn_dspx2c_axi_;
+	_CLEAR_RESET_rstgen_rstn_dma1p_axi_;
+
+	_ENABLE_CLOCK_clk_msi_apb_;
+	_CLEAR_RESET_rstgen_rstn_msi_apb_;
+
+	_ASSERT_RESET_rstgen_rstn_x2c_axi_;
+	_CLEAR_RESET_rstgen_rstn_x2c_axi_;
+//end for illegal instruction exception
     _SET_SYSCON_REG_register69_core1_en(1);
     _SET_SYSCON_REG_register104_SCFG_io_padshare_sel(6);
     _SET_SYSCON_REG_register32_SCFG_funcshare_pad_ctrl_0(0x00c00000);
