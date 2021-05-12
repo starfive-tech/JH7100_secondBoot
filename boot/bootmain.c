@@ -1,17 +1,32 @@
+/**
+  ******************************************************************************
+  * @file  bootmain.c
+  * @author  StarFive Technology
+  * @version  V1.0
+  * @date  06/25/2020
+  * @brief
+  ******************************************************************************
+  * @copy
+  *
+  * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  * TIME. AS A RESULT, STARFIVE SHALL NOT BE HELD LIABLE FOR ANY
+  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  * FROM THE CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  *
+  * COPYRIGHT 2020 Shanghai StarFive Technology Co., Ltd.
+  */
+
 #include "sys.h"
 #include "spi_flash.h"
 #include "spi.h"
 #include "encoding.h"
-#include "clkgen_ctrl_macro.h"
-#include "rstgen_ctrl_macro.h"
-#include "syscon_iopad_ctrl_macro.h"
-
-#if defined(BEAGLEV)
+#include <clkgen_ctrl_macro.h>
 #include <syscon_sysmain_ctrl_macro.h>
 #include <ezGPIO_fullMux_ctrl_macro.h>
 #include <rstgen_ctrl_macro.h>
-#endif
-
+#include <syscon_iopad_ctrl_macro.h>
 
 typedef void ( *STARTRUNNING )( unsigned int par1 );
 
@@ -159,18 +174,14 @@ void BootMain(void)
 	_ASSERT_RESET_rstgen_rstn_x2c_axi_;
 	_CLEAR_RESET_rstgen_rstn_x2c_axi_;
 //end for illegal instruction exception
-
-#if defined(BEAGLEV)
-	_SET_SYSCON_REG_register69_core1_en(1);
-	_SET_SYSCON_REG_register104_SCFG_io_padshare_sel(6);
-	_SET_SYSCON_REG_register32_SCFG_funcshare_pad_ctrl_0(0x00c00000);
-	_SET_SYSCON_REG_register33_SCFG_funcshare_pad_ctrl_1(0x00c000c0);
-	_SET_SYSCON_REG_register34_SCFG_funcshare_pad_ctrl_2(0x00c000c0);
-	_SET_SYSCON_REG_register35_SCFG_funcshare_pad_ctrl_3(0x00c000c0);
-	_SET_SYSCON_REG_register39_SCFG_funcshare_pad_ctrl_7(0x00c300c3);
-	_SET_SYSCON_REG_register38_SCFG_funcshare_pad_ctrl_6(0x00c00000);
-
-#endif
+    _SET_SYSCON_REG_register69_core1_en(1);
+    _SET_SYSCON_REG_register104_SCFG_io_padshare_sel(6);
+    _SET_SYSCON_REG_register32_SCFG_funcshare_pad_ctrl_0(0x00c00000);
+    _SET_SYSCON_REG_register33_SCFG_funcshare_pad_ctrl_1(0x00c000c0);
+    _SET_SYSCON_REG_register34_SCFG_funcshare_pad_ctrl_2(0x00c000c0);
+    _SET_SYSCON_REG_register35_SCFG_funcshare_pad_ctrl_3(0x00c000c0);
+    _SET_SYSCON_REG_register39_SCFG_funcshare_pad_ctrl_7(0x00c300c3);
+    _SET_SYSCON_REG_register38_SCFG_funcshare_pad_ctrl_6(0x00c00000);
 
 	uart_init(3);
 	
