@@ -29,7 +29,7 @@
 	.globl _start
 
 _start:
-
+	csrwi 0x7c1, 0
 	la t0, trap_entry
 	csrw mtvec, t0
 	csrwi mstatus, 0
