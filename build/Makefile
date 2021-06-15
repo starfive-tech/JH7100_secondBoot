@@ -82,4 +82,4 @@ $(TARGET).elf:$(OBJECTLIST)
 	
 .PHONY: clean
 clean:
-	rm -f ../*/*.o $(TARGET).bin $(TARGET).bin.out $(TARGET).elf $(TARGET).asm *.map
+	rm -f $(OBJECTLIST) *.bin *.bin.out *.elf *.asm *.map
