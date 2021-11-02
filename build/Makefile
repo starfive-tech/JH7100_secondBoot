@@ -8,14 +8,14 @@ LD=${CROSSCOMPILE}ld
 OBJCOPY=${CROSSCOMPILE}objcopy
 OBJDUMP=${CROSSCOMPILE}objdump
 
-# BOARD IS BEAGLEV OR EVBV1
-BOARD=BEAGLEV
+# SoC IS JH7100 FOR VISIONFIVE OR BEAGLEV OR EVBV1 
+SoC=JH7100
 
 SUFFIX=$(shell date +%y%m%d)
 GIT_VERSION=$(shell git show -s --pretty=format:%h)
 BLD_VERSION=$(SUFFIX)-$(GIT_VERSION)
 
-TARGET 	= bootloader-$(BOARD)-$(SUFFIX)
+TARGET 	= bootloader-$(SoC)-$(SUFFIX)
 LINKER_SCRIPT := bootloader.lds
 MAP_FILE := bootloader.map
 
@@ -31,7 +31,7 @@ INCLUDE_DIR=-I. -I../boot\
 RISCV_ARCH := rv64imafdc
 RISCV_ABI  := lp64d 
 
-CFLAGS += -O2 -g -c -Wall -DVERSION=\"$(BLD_VERSION)\" -D$(BOARD)
+CFLAGS += -O2 -g -c -Wall -DVERSION=\"$(BLD_VERSION)\" -D$(SoC)
 CFLAGS += -march=$(RISCV_ARCH)
 CFLAGS += -mabi=$(RISCV_ABI)
 CFLAGS += -mcmodel=medany

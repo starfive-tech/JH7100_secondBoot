@@ -11,7 +11,7 @@ export PATH=/home/user/compiler/bin:$PATH
 	
 # Build
 
-Enter the build directory, generate the bootloader-BEAGLEV-xxxxxx.bin.out file after make
+Enter the build directory, generate the bootloader-JH7100-xxxxxx.bin.out file after make
 
 # Upgrade 
 

@@ -156,6 +156,7 @@ static const struct spi_flash_params spi_flash_table[] =
 	 //{"GD25LB64C",	   	0x1760C8,   8,16,16,256, NOR},
 	 {"S25FL512S_512K", 0x200201, 8,16,64,256, NOR},
 	 {"GD25LQ256D", 0x1960C8, 8,16,16,512, NOR},
+	 {"GD25LQ128", 0x1960C8, 8,16,16,256, NOR}
 	//{"GD25LB64B",	   	0xC86017,   8,16,16,256, NOR},
 	//{"NORMAL",			0x000000,	8,16,16,	1,	NOR},
 
